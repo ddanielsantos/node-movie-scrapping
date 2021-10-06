@@ -14,29 +14,27 @@ async function getElements(user: string): Promise<void> {
     
     // Nome do arquivo a ser salvo
     const timePrefix = new Date().toLocaleString().replace(timeSeparator, '-') + `-${user}`
-    console.log(timePrefix)
+    // console.log(timePrefix)
     
-    // const browser = await puppeteer.launch({
-    //     // headless: false,
-    //     product: 'firefox',
-    //     executablePath: browserPath,
-    // });
+    const browser = await puppeteer.launch({
+        // headless: false,
+        product: 'firefox',
+        executablePath: browserPath,
+    });
     
-    // const page = await browser.newPage();
-    // await page.goto(`https://letterboxd.com/${user}`, {
-    //     timeout: 0,
-    // });
+    const page = await browser.newPage();
+    await page.goto(`https://letterboxd.com/${user}`, {
+        timeout: 0,
+    });
 
     const saveDirectory = './screenshots/'
 
     if(!fs.existsSync(saveDirectory)){
         console.log('Creating folder')
         fs.mkdirSync(saveDirectory)
-    }else{
-        console.log('Folder already exists')
     }
 
-    // await page.screenshot({ path: saveDirectory + timePrefix + '.png' });
+    await page.screenshot({ path: saveDirectory + timePrefix + '.png' });
     
     // console.log('before query')
     // const nodes = await page.evaluate(() => {
@@ -49,7 +47,7 @@ async function getElements(user: string): Promise<void> {
     // console.log(nodes)
     // console.log(nodes[0])
 
-    // await browser.close();
+    await browser.close();
 }
 
 getElements('suitingpie52')
